@@ -1,3 +1,18 @@
+from spellchecker import SpellChecker
+
+# Initialize the spell checker
+spell = SpellChecker()
+
+# 1. Check spelling of individual words
+misspelled = spell.unknown(['something', 'is', 'hapening', 'here', 'whry'])
+
+print("Misspelled words found:", misspelled)
+for word in misspelled:
+    # Get the one most likely correct spelling
+    print(f"Correction for '{word}': {spell.correction(word)}")
+    # Get a list of likely candidates
+    print(f"Candidates for '{word}': {spell.candidates(word)}")
+
 Ensure pyspellchecker is installed
 !pip install -q pyspellchecker
 
