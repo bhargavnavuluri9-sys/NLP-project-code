@@ -1,0 +1,36 @@
+Ensure pyspellchecker is installed
+!pip install -q pyspellchecker
+
+from spellchecker import SpellChecker
+
+# Initialize the spell checker
+spell = SpellChecker()
+
+# Helper function to correct an entire sentence
+def correct_sentence(sentence):
+    words = sentence.split()
+    corrected_words = []
+    for word in words:
+        # Strip common punctuation characters
+        clean_word = word.strip('.,!?;:"()')
+        correction = spell.correction(clean_word)
+
+        if correction:
+            # Retain original casing structure if possible
+            if clean_word.istitle():
+                correction = correction.title()
+            elif clean_word.isupper():
+                correction = correction.upper()
+
+            # Put punctuation back
+            corrected_word = word.replace(clean_word, correction)
+            corrected_words.append(corrected_word)
+        else:
+            corrected_words.append(word)
+
+    return " ".join(corrected_words)
+
+# Example usage
+test_sentence = "i realy like machne learning."
+print("Original:", test_sentence)
+print("Corrected:", correct_sentence(test_sentence))
